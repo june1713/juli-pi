@@ -2,6 +2,9 @@
 #X obj 136 98 osc~ 440;
 #X obj 136 220 dac~;
 #X obj 136 122 *~ 0.5;
+#X obj 253 107 loadbang;
+#X msg 253 161 \; pd dsp 1, f 19;
 #X connect 0 0 2 0;
 #X connect 2 0 1 0;
 #X connect 2 0 1 1;
+#X connect 3 0 4 0;
