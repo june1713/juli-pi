@@ -13,5 +13,5 @@ sleep 2
 # Launch Pd patch in nogui mode
 # puredata -nogui -stderr -audiodev "4" /home/wearpi/git/wearpi-py/pd/wearpi-regression-sound-4in.pd &
 # puredata -nogui -stderr -audiodev "4" /home/wearpi/git/wearpi-py/pd/wearpi-regression-granular.pd &
-puredata -nogui -stderr -audiodev "4" /home/juli/git/j-pi-py/pd/test.pd & 
+puredata -nogui -stderr -audiodev "4" /home/juli/git/j-pi-py/pd/jpi-fx-valency.pd & 
 # puredata -nogui -stderr -audiodev "4" /home/wearpi/git/wearpi-py/pd/wearpi-regression-fx.pd &
