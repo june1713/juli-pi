@@ -2018,6 +2018,9 @@
 #X obj 1461 403 r knob3_update;
 #X obj 1269 429 * 127;
 #X obj 1461 429 * 127;
+#X obj 1973 790 f;
+#X obj 1973 822 + 1;
+#X obj 1973 848 clip 0 3;
 #X connect 0 0 1 0;
 #X connect 0 1 2 0;
 #X connect 0 2 3 0;
@@ -2174,6 +2177,8 @@
 #X connect 122 0 124 0;
 #X connect 123 0 69 0;
 #X connect 124 0 74 0;
+#X connect 125 0 126 0;
+#X connect 126 0 127 0;
 #X restore 727 -199 pd knobs_buttons_endless;
 #X obj -289 586 r knob4;
 #X msg 1970 257 set \$1;
@@ -2217,7 +2222,7 @@
 #X obj 2052 744 r knob4;
 #X obj -292 878 r knob4;
 #X text 636 214 first/ next parameter;
-#N canvas 0 22 450 300 menu 1;
+#N canvas 0 22 450 300 menu 0;
 #N canvas 0 22 450 300 notes 0;
 #X obj 743 305 pitch.shift~;
 #X obj 859 305 revdelay~;
