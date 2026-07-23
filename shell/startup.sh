@@ -10,9 +10,9 @@ cd /home/juli/git/juli-pi
 
 # Start Python scripts in the background
 
-/usr/bin/python3 /home/juli/git/wearpi-py/wearpi-osc-lists-adc-norm-smooth-4in.py &
+/home/juli/venv/bin/python /home/juli/git/wearpi-py/wearpi-osc-lists-adc-norm-smooth-4in.py &
 sleep 2
-/usr/bin/python3 /home/juli/git/wearpi-py/wearpi-osc-lists-controls.py &
+/home/juli/venv/bin/python /home/juli/git/wearpi-py/wearpi-osc-lists-controls.py &
 sleep 2
 
 # Launch Pd patch in nogui mode
