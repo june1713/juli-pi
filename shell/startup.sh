@@ -23,4 +23,4 @@ FLUCOMA=/usr/lib/puredata/extra/FluidCorpusManipulation
 # puredata -nogui -stderr -audiodev "4" -path "$FLUCOMA" -path "$MOSO" -lib fluid_libmanipulation /home/wearpi/git/wearpi-py/pd/wearpi-regression-granular-cosima-sounds.pd &
 # puredata -nogui -stderr -audiodev "4" -path "$FLUCOMA" -path "$MOSO" -lib fluid_libmanipulation /home/wearpi/git/wearpi-py/pd/wearpi-regression-fx.pd &
 # puredata -nogui -stderr -audiodev "4" -path "$FLUCOMA" -path "$MOSO" -lib fluid_libmanipulation /home/wearpi/git/wearpi-py/pd/wearpi-regression-audioin-rave.pd &
-puredata -nogui -stderr -audiodev "4" -path "$FLUCOMA" -lib fluid_libmanipulation/home/juli/git/juli-pi/pd/test.pd &
+pd -nogui -stderr -audiodev "4" -path "$FLUCOMA" -lib fluid_libmanipulation/home/juli/git/juli-pi/pd/test.pd &

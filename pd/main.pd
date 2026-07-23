@@ -1,4 +1,4 @@
-#N canvas 827 239 734 565 12;
+#N canvas 0 62 1920 986 12;
 #X obj 138 14 cnv 15 404 124 empty empty SENSOR\ PROCESSING 20 -20 0 30 #84824a #000000 0;
 #X obj 154 32 cnv 15 367 94 empty empty empty 20 12 0 14 #fffb8e #000000 0;
 #X obj 545 -558 cnv 15 445 507 empty empty CONTROL\ PROCESSING 20 -20 0 30 #749157 #000000 0;
@@ -2286,12 +2286,16 @@
 #X obj -347 684 soundfiler;
 #N canvas 0 0 450 250 (subpatch) 0;
 #X array sound_left 162831 float 0;
+#A color 0;
+#A width 1;
 #X coords 0 1 162830 -1 200 140 1;
 #X restore 96 470 graph;
 #X obj -362 -113 bng 25 250 50 0 empty empty empty 0 -10 0 10 #ffffff #000000 #000000;
 #X msg -328 -113 stop;
 #N canvas 0 0 450 250 (subpatch) 0;
 #X array sound_right 162831 float 0;
+#A color 0;
+#A width 1;
 #X coords 0 1 162830 -1 200 140 1;
 #X restore 96 638 graph;
 #X obj -362 -20 tabplay~ sound_left;
@@ -3308,7 +3312,7 @@
 #X connect 7 0 10 0;
 #X connect 9 0 7 0;
 #X restore 176 86 pd arduino-processing;
-#N canvas 0 22 450 300 wearpi-processing 0;
+#N canvas 181 186 754 494 wearpi-processing 0;
 #X obj 539 618 s sensor1;
 #X obj 630 618 s sensor2;
 #X obj 539 189 r adc;
@@ -3318,10 +3322,12 @@
 #X msg 819 255 \$4;
 #X obj 724 618 s sensor3;
 #X obj 819 618 s sensor4;
+#X obj 416 393 print sensor;
 #X connect 2 0 3 0;
 #X connect 2 0 5 0;
 #X connect 2 0 4 0;
 #X connect 2 0 6 0;
+#X connect 2 0 9 0;
 #X connect 3 0 0 0;
 #X connect 4 0 1 0;
 #X connect 5 0 7 0;
