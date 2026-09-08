@@ -82,8 +82,8 @@ font = ImageFont.load_default()
 # font = ImageFont.truetype('Minecraftia.ttf', 8)
 
 # Write two lines of text.
-draw.text((80, top), "Sensor", font=font, fill=255)
-draw.text((80, top + 12), "Inputs", font=font, fill=255)
+draw.text((80, top), "text1", font=font, fill=255)
+draw.text((80, top + 12), "text2", font=font, fill=255)
 
 # Display image.
 disp.image(image)
