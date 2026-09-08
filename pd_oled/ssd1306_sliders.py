@@ -11,6 +11,8 @@
 import busio
 from board import SCL, SDA
 from PIL import Image, ImageDraw, ImageFont
+from pythonosc import dispatcher
+from pythonosc import osc_server
 
 import adafruit_ssd1306
 
