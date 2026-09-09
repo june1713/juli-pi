@@ -1,6 +1,6 @@
 #N canvas 559 122 991 669 12;
 #X obj 512 186 wearpi-controls;
-#N canvas 0 62 450 300 display 0;
+#N canvas 0 22 450 300 display 1;
 #X obj 399 347 vsl 17 128 0 1 0 0 empty empty VOLUME 0 -9 0 10 #ffffff #000000 #000000 0 1;
 #X obj 269 259 r volume;
 #X obj 550 259 r M1_choo;
