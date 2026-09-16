@@ -15,7 +15,7 @@ cd /home/juli/git/juli-pi
 sleep 2
 /home/juli/venv/bin/python /home/juli/git/wearpi-py/wearpi-osc-lists-controls.py &
 sleep 2
-/home/juli/venv/bin/python /home/juli/git/juli-pi/pd_oled/ssd1306_sliders_2.py &
+/home/juli/venv/bin/python /home/juli/git/juli-pi/pd_oled/ssd1306_sliders_3.py &
 sleep 2
 
 # Launch Pd patch in nogui mode
