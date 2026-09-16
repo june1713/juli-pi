@@ -144,7 +144,7 @@ text1_visible = True
 text2_visible = True
 text3_visible = True
 last_blink = time.monotonic()
-blink_interval = 0.5
+blink_interval = 0.15
 
 
 # --------------------------------------------------
