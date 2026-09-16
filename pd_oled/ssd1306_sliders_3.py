@@ -14,6 +14,7 @@
 # SPDX-License-Identifier: MIT
 
 import busio
+import time
 from board import SCL, SDA
 from PIL import Image, ImageDraw, ImageFont
 
@@ -29,10 +30,13 @@ from pythonosc import osc_server
 # --------------------------------------------------
 
 slider1 = 1.0
+blinking1_enabled = False
+blinking2_enabled = False
+blinking3_enabled = False
 
 text1 = "text1"
 text2 = "text2"
-text2 = "text3"
+text3 = "text3"
 
 
 # --------------------------------------------------
@@ -43,6 +47,30 @@ def slider1_handler(address, value):
     global slider1
     slider1 = float(value)
     print("slider1:", slider1)
+
+
+def blink1_handler(address, value):
+    global blinking1_enabled, text1_visible
+    blinking1_enabled = bool(float(value))
+    if not blinking1_enabled:
+        text1_visible = True
+    print("blinking1:", blinking1_enabled)
+
+
+def blink2_handler(address, value):
+    global blinking2_enabled, text2_visible
+    blinking2_enabled = bool(float(value))
+    if not blinking2_enabled:
+        text2_visible = True
+    print("blinking2:", blinking2_enabled)
+
+
+def blink3_handler(address, value):
+    global blinking3_enabled, text3_visible
+    blinking3_enabled = bool(float(value))
+    if not blinking3_enabled:
+        text3_visible = True
+    print("blinking3:", blinking3_enabled)
 
 
 def text1_handler(address, value):
@@ -57,6 +85,12 @@ def text2_handler(address, value):
     print("text2:", text2)
 
 
+def text3_handler(address, value):
+    global text3
+    text3 = str(value)
+    print("text3:", text3)
+
+
 # --------------------------------------------------
 # SET UP OSC
 # --------------------------------------------------
@@ -64,18 +98,20 @@ def text2_handler(address, value):
 dispatcher = dispatcher.Dispatcher()
 
 dispatcher.map("/slider1", slider1_handler)
-dispatcher.map("/slider2", slider2_handler)
-dispatcher.map("/slider3", slider3_handler)
-dispatcher.map("/slider4", slider4_handler)
+dispatcher.map("/blink1", blink1_handler)
+dispatcher.map("/blink2", blink2_handler)
+dispatcher.map("/blink3", blink3_handler)
 
 dispatcher.map("/text1", text1_handler)
 dispatcher.map("/text2", text2_handler)
+dispatcher.map("/text3", text3_handler)
 
 # Listen on localhost, port 8000
 server = osc_server.ThreadingOSCUDPServer(
     ("127.0.0.1", 8000),
     dispatcher
 )
+server.timeout = 0.05
 
 print("OSC server listening on 127.0.0.1:8000")
 
@@ -104,6 +140,12 @@ draw = ImageDraw.Draw(image)
 # Load default font.
 font = ImageFont.load_default()
 
+text1_visible = True
+text2_visible = True
+text3_visible = True
+last_blink = time.monotonic()
+blink_interval = 0.5
+
 
 # --------------------------------------------------
 # OSC + OLED LOOP
@@ -112,8 +154,19 @@ font = ImageFont.load_default()
 while True:
 
     # Handle OSC messages.
-    # This waits until an OSC message arrives.
+    # This waits briefly for an OSC message so the blink timer can run.
     server.handle_request()
+
+    if blinking1_enabled or blinking2_enabled or blinking3_enabled:
+        now = time.monotonic()
+        if now - last_blink >= blink_interval:
+            if blinking1_enabled:
+                text1_visible = not text1_visible
+            if blinking2_enabled:
+                text2_visible = not text2_visible
+            if blinking3_enabled:
+                text3_visible = not text3_visible
+            last_blink = now
 
     # Clear the image.
     draw.rectangle(
@@ -134,10 +187,10 @@ while True:
 
     top1 = bottom - (slider1 * 28)
 
-    x = padding - shape_width
+    x = 110
 
     draw.rectangle(
-        (x, top1, x + shape_width - padding, bottom),
+        (x, top1, x + shape_width, bottom),
         outline=255,
         fill=0
     )
@@ -146,26 +199,29 @@ while True:
     # DRAW TEXT
     # --------------------------------------------------
 
-    draw.text(
-        (padding, top),
-        text1,
-        font=font,
-        fill=255
-    )
-
-    draw.text(
-        (padding, top + 12),
-        text2,
-        font=font,
-        fill=255
-    )
-
+    if text1_visible:
         draw.text(
-        (padding, top + 24),
-        text3,
-        font=font,
-        fill=255
-    )
+            (padding, top),
+            text1,
+            font=font,
+            fill=255
+        )
+
+    if text2_visible:
+        draw.text(
+            (padding + 35, top + 8),
+            text2,
+            font=font,
+            fill=255
+        )
+
+    if text3_visible:
+        draw.text(
+            (padding + 70, top + 16),
+            text3,
+            font=font,
+            fill=255
+        )
 
     # --------------------------------------------------
     # UPDATE OLED
