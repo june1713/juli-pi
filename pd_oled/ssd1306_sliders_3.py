@@ -31,6 +31,7 @@ from pythonosc import osc_server
 # --------------------------------------------------
 
 slider1 = 1.0
+blinking4_enabled = False
 blinking1_enabled = False
 blinking2_enabled = False
 blinking3_enabled = False
@@ -50,6 +51,16 @@ def slider1_handler(address, value):
     new_value = float(value)
     if slider1 != new_value:
         slider1 = new_value
+        display_dirty.set()
+
+
+def blink4_handler(address, value):
+    global blinking4_enabled, slider1_visible
+    new_value = bool(float(value))
+    if blinking4_enabled != new_value:
+        blinking4_enabled = new_value
+        if not blinking4_enabled:
+            slider1_visible = True
         display_dirty.set()
 
 
@@ -114,6 +125,7 @@ def text3_handler(address, value):
 dispatcher = dispatcher.Dispatcher()
 
 dispatcher.map("/slider1", slider1_handler)
+dispatcher.map("/blink4", blink4_handler)
 dispatcher.map("/blink1", blink1_handler)
 dispatcher.map("/blink2", blink2_handler)
 dispatcher.map("/blink3", blink3_handler)
@@ -159,6 +171,7 @@ font = ImageFont.load_default()
 text1_visible = True
 text2_visible = True
 text3_visible = True
+slider1_visible = True
 last_blink = time.monotonic()
 blink_interval = 0.15
 frame_interval = 1 / 60
@@ -176,9 +189,11 @@ while True:
     # This waits briefly for an OSC message so the blink timer can run.
     server.handle_request()
 
-    if blinking1_enabled or blinking2_enabled or blinking3_enabled:
+    if blinking1_enabled or blinking2_enabled or blinking3_enabled or blinking4_enabled:
         now = time.monotonic()
         if now - last_blink >= blink_interval:
+            if blinking4_enabled:
+                slider1_visible = not slider1_visible
             if blinking1_enabled:
                 text1_visible = not text1_visible
             if blinking2_enabled:
@@ -215,11 +230,12 @@ while True:
 
     x = 110
 
-    draw.rectangle(
-        (x, top1, x + shape_width, bottom),
-        outline=255,
-        fill=0
-    )
+    if slider1_visible:
+        draw.rectangle(
+            (x, top1, x + shape_width, bottom),
+            outline=255,
+            fill=0
+        )
 
     # --------------------------------------------------
     # DRAW TEXT
