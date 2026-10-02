@@ -69,7 +69,7 @@
 #X obj -408 -154 r M2_error;
 #X obj -116 -473 r M3_choo;
 #X obj -116 -426 r M3_sel;
-#N canvas 0 22 450 300 MODULE1 0;
+#N canvas 0 22 450 300 MODULE1 1;
 #X obj 598 202 inlet~;
 #X obj 599 673 outlet~;
 #X floatatom 455 92 5 0 0 2 dry\ /wet - - 12;
@@ -1021,7 +1021,7 @@
 #X obj -116 -250 r M3_add_data;
 #X obj -116 -202 r M3_learn;
 #X obj -116 -154 r M3_error;
-#N canvas 0 62 1920 796 MODULE3 1;
+#N canvas 0 62 1920 796 MODULE3 0;
 #X obj -1152 -434 inlet~;
 #X obj -362 210 *~;
 #X obj -209 210 *~;
@@ -1856,7 +1856,7 @@
 #X obj 135 207 *~;
 #X obj 160 -125 sel 0 1 2 3;
 #X msg 319 -260 4;
-#N canvas 0 62 1920 796 M3_fx3 1;
+#N canvas 0 62 1920 796 M3_fx3 0;
 #X obj 383 441 inlet~;
 #X obj 517 1109 outlet~;
 #X obj 619 1109 outlet~;
@@ -5083,7 +5083,7 @@
 #X connect 42 1 33 0;
 #X restore 669 -514 pd raspberry_knobs_buttons;
 #X obj -480 132 adc~ 1;
-#N canvas 0 22 450 300 display 0;
+#N canvas 0 22 450 300 display 1;
 #X obj 1659 280 vsl 17 128 0 1 0 0 empty empty VOLUME 0 -9 0 10 #ffffff #000000 #000000 0 1;
 #X obj 1659 229 r volume;
 #X obj -11 228 r M1_choo;
