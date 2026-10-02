@@ -14,6 +14,7 @@
 # SPDX-License-Identifier: MIT
 
 import busio
+import threading
 import time
 from board import SCL, SDA
 from PIL import Image, ImageDraw, ImageFont
@@ -37,6 +38,7 @@ blinking3_enabled = False
 text1 = "text1"
 text2 = "text2"
 text3 = "text3"
+display_dirty = threading.Event()
 
 
 # --------------------------------------------------
@@ -45,50 +47,64 @@ text3 = "text3"
 
 def slider1_handler(address, value):
     global slider1
-    slider1 = float(value)
-    print("slider1:", slider1)
+    new_value = float(value)
+    if slider1 != new_value:
+        slider1 = new_value
+        display_dirty.set()
 
 
 def blink1_handler(address, value):
     global blinking1_enabled, text1_visible
-    blinking1_enabled = bool(float(value))
-    if not blinking1_enabled:
-        text1_visible = True
-    print("blinking1:", blinking1_enabled)
+    new_value = bool(float(value))
+    if blinking1_enabled != new_value:
+        blinking1_enabled = new_value
+        if not blinking1_enabled:
+            text1_visible = True
+        display_dirty.set()
 
 
 def blink2_handler(address, value):
     global blinking2_enabled, text2_visible
-    blinking2_enabled = bool(float(value))
-    if not blinking2_enabled:
-        text2_visible = True
-    print("blinking2:", blinking2_enabled)
+    new_value = bool(float(value))
+    if blinking2_enabled != new_value:
+        blinking2_enabled = new_value
+        if not blinking2_enabled:
+            text2_visible = True
+        display_dirty.set()
 
 
 def blink3_handler(address, value):
     global blinking3_enabled, text3_visible
-    blinking3_enabled = bool(float(value))
-    if not blinking3_enabled:
-        text3_visible = True
-    print("blinking3:", blinking3_enabled)
+    new_value = bool(float(value))
+    if blinking3_enabled != new_value:
+        blinking3_enabled = new_value
+        if not blinking3_enabled:
+            text3_visible = True
+        display_dirty.set()
 
 
 def text1_handler(address, value):
     global text1
-    text1 = str(value)
-    print("text1:", text1)
+    new_value = str(value)
+    if text1 != new_value:
+        text1 = new_value
+        display_dirty.set()
 
 
 def text2_handler(address, value):
     global text2
-    text2 = str(value)
-    print("text2:", text2)
+    new_value = str(value)
+    if text2 != new_value:
+        text2 = new_value
+        display_dirty.set()
 
 
 def text3_handler(address, value):
     global text3
-    text3 = str(value)
-    print("text3:", text3)
+    new_value = str(value)
+    if text3 != new_value:
+        text3 = new_value
+        display_dirty.set()
 
 
 # --------------------------------------------------
@@ -111,7 +127,7 @@ server = osc_server.ThreadingOSCUDPServer(
     ("127.0.0.1", 8000),
     dispatcher
 )
-server.timeout = 0.05
+server.timeout = 0.005
 
 print("OSC server listening on 127.0.0.1:8000")
 
@@ -145,6 +161,9 @@ text2_visible = True
 text3_visible = True
 last_blink = time.monotonic()
 blink_interval = 0.15
+frame_interval = 1 / 60
+last_render = 0.0
+display_dirty.set()
 
 
 # --------------------------------------------------
@@ -167,6 +186,13 @@ while True:
             if blinking3_enabled:
                 text3_visible = not text3_visible
             last_blink = now
+            display_dirty.set()
+
+    now = time.monotonic()
+    if not display_dirty.is_set() or now - last_render < frame_interval:
+        continue
+
+    display_dirty.clear()
 
     # Clear the image.
     draw.rectangle(
@@ -229,3 +255,4 @@ while True:
 
     disp.image(image)
     disp.show()
+    last_render = time.monotonic()
