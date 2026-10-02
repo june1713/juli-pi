@@ -4940,7 +4940,7 @@
 #X connect 52 0 2 0;
 #X coords 0 0 1 1 200 140 0;
 #X restore 1643 764 pd arduino-controls;
-#N canvas 0 22 450 300 arduino-processing 0;
+#N canvas 0 22 450 300 arduino-processing 1;
 #X obj 489 297 inlet;
 #X obj 607 297 inlet;
 #X floatatom 729 346 5 0 0 0 - - - 12;
@@ -4957,6 +4957,8 @@
 #X obj 847 299 inlet;
 #X obj 729 519 s sensor3;
 #X obj 847 519 s sensor4;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
 #X connect 2 0 4 0;
 #X connect 3 0 5 0;
 #X connect 4 0 6 0;
@@ -4965,8 +4967,6 @@
 #X connect 7 0 14 0;
 #X connect 7 0 8 0;
 #X connect 9 0 7 0;
-#X connect 12 0 2 0;
-#X connect 13 0 3 0;
 #X restore 1643 796 pd arduino-processing;
 #N canvas 181 186 941 604 wearpi-processing 0;
 #X obj 539 618 s sensor1;
