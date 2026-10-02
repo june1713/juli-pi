@@ -5193,6 +5193,12 @@
 #X obj 675 340 sel 0 1;
 #X msg 675 367 symbol select;
 #X msg 676 394 symbol predict;
+#X obj 1824 229 r mute;
+#X obj 1824 761 list prepend send;
+#X obj 1824 799 list trim;
+#X floatatom 1824 692 5 0 0 0 - - - 12;
+#X obj 1824 724 oscformat blink4;
+#X obj 1824 278 tgl 25 0 empty empty empty 0 -10 0 10 #ffffff #000000 #000000 0 1;
 #X connect 0 0 17 0;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
@@ -5339,6 +5345,12 @@
 #X connect 106 1 108 0;
 #X connect 107 0 42 0;
 #X connect 108 0 42 0;
+#X connect 109 0 114 0;
+#X connect 110 0 111 0;
+#X connect 111 0 10 0;
+#X connect 112 0 113 0;
+#X connect 113 0 110 0;
+#X connect 114 0 112 0;
 #X restore 162 -622 pd display;
 #X text 1094 -135 after selecting MOD1:;
 #X text 1550 -77 add data points;
