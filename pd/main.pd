@@ -1793,16 +1793,12 @@
 #X obj -347 684 soundfiler;
 #N canvas 0 0 450 250 (subpatch) 0;
 #X array sound_left 5.62605e+06 float 0;
-#A color 0;
-#A width 1;
 #X coords 0 1 5.62605e+06 -1 200 140 1;
 #X restore 96 470 graph;
 #X obj -362 -113 bng 25 250 50 0 empty empty empty 0 -10 0 10 #ffffff #000000 #000000;
 #X msg -328 -113 stop;
 #N canvas 0 0 450 250 (subpatch) 0;
 #X array sound_right 5.62605e+06 float 0;
-#A color 0;
-#A width 1;
 #X coords 0 1 5.62605e+06 -1 200 140 1;
 #X restore 96 638 graph;
 #X obj -362 -20 tabplay~ sound_left;
@@ -5473,3 +5469,4 @@
 #X connect 133 14 19 0;
 #X connect 133 15 20 0;
 #X connect 134 0 70 0;
+#X connect 195 0 198 0;
