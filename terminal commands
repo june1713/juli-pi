@@ -1,0 +1,39 @@
+# WIFI
+
+On Raspberry Pi OS with NetworkManager, first list saved connection names:
+
+```bash
+nmcli connection show
+```
+
+Then disconnect the old network and connect to a saved one:
+
+```bash
+sudo nmcli connection down id "Old WiFi" && sudo nmcli connection up id "New WiFi"
+
+sudo nmcli connection down id "Arduino-Hotspot" && sudo nmcli connection up id "Vodafone-FC2C"
+
+sudo nmcli connection down id "Vodafone-FC2C" && sudo nmcli connection up id "Arduino-Hotspot"
+
+```
+
+
+
+If the new network isn’t saved yet:
+
+```bash
+sudo nmcli connection down id "Old WiFi" && sudo nmcli device wifi connect "New SSID" password "PASSWORD" ifname wlan0
+```
+
+If you’re connected over SSH through the old Wi-Fi, the session will drop when it disconnects.
+
+
+# RERUN THE LAUNCHER
+
+In the terminal, run:
+
+```bash
+bash /home/juli/git/juli-pi/shell/startup.sh
+```
+
+It stops the matching old processes, then starts the OSC scripts, OLED receiver, and Pure Data patch.

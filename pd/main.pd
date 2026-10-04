@@ -844,7 +844,7 @@
 #X obj 1351 100 r M3_add_data;
 #X obj 1351 148 r M3_learn;
 #X obj 1351 196 r M3_error;
-#N canvas 0 62 1920 796 MODULE3 1;
+#N canvas 0 62 1920 796 MODULE3 0;
 #X obj -1152 -434 inlet~;
 #X obj -362 210 *~;
 #X obj -209 210 *~;
@@ -1621,16 +1621,12 @@
 #X obj -347 684 soundfiler;
 #N canvas 0 0 450 250 (subpatch) 0;
 #X array sound_left 5.62605e+06 float 0;
-#A color 0;
-#A width 1;
 #X coords 0 1 5.62605e+06 -1 200 140 1;
 #X restore 96 470 graph;
 #X obj -362 -113 bng 25 250 50 0 empty empty empty 0 -10 0 10 #ffffff #000000 #000000;
 #X msg -328 -113 stop;
 #N canvas 0 0 450 250 (subpatch) 0;
 #X array sound_right 5.62605e+06 float 0;
-#A color 0;
-#A width 1;
 #X coords 0 1 5.62605e+06 -1 200 140 1;
 #X restore 96 638 graph;
 #X obj -362 -70 tabplay~ sound_left;
@@ -1683,7 +1679,7 @@
 #X obj 135 207 *~;
 #X obj 160 -125 sel 0 1 2 3;
 #X msg 319 -260 4;
-#N canvas 0 62 1920 796 M3_fx3 1;
+#N canvas 0 62 1920 796 M3_fx3 0;
 #X obj 383 441 inlet~;
 #X obj 517 1109 outlet~;
 #X obj 619 1109 outlet~;
@@ -5218,9 +5214,9 @@
 #X obj 1379 -309 s volume;
 #X obj 1286 -386 del 1000;
 #X obj 1059 446 vsl 17 128 0 1 0 0 empty display_volume empty 0 -9 0 10 #000000 #ffffff #000000 0 1;
-#X obj 816 437 cnv 15 63 27 empty display_text1 FX_1 20 12 0 14 #000000 #ffffff 0;
+#X obj 816 437 cnv 15 63 27 empty display_text1 FX_0 20 12 0 14 #000000 #ffffff 0;
 #X obj 884 467 cnv 15 63 27 empty display_text2 FX_0 20 12 0 14 #000000 #ffffff 0;
-#X obj 955 495 cnv 15 63 27 empty display_text3 FX_0 20 12 0 14 #000000 #ffffff 0;
+#X obj 955 495 cnv 15 63 27 empty display_text3 FX_0 20 12 0 14 #787878 #ffffff 0;
 #X obj 1895 106 vsl 17 128 0 1 0 0 empty empty empty 0 -9 0 10 #ffffff #000000 #000000 0 1;
 #X obj 1945 136 vsl 17 128 0 1 0 0 empty empty empty 0 -9 0 10 #ffffff #000000 #000000 0 1;
 #X obj 1895 74 r sensor5;
