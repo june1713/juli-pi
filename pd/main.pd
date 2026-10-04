@@ -331,7 +331,7 @@
 #X connect 42 0 34 2;
 #X connect 43 0 35 0;
 #X restore 1257 895 pd MODULE1;
-#N canvas 0 62 1429 808 MODULE2 0;
+#N canvas 0 62 1429 808 MODULE2 1;
 #X obj 651 -72 inlet~;
 #X obj 651 334 outlet~;
 #X obj 857 334 outlet~;
@@ -399,7 +399,7 @@
 #X connect 10 0 8 1;
 #X restore 651 95 pd M2_fx0;
 #X msg 1009 -35 4;
-#N canvas 0 62 1920 986 M2_fx1 0;
+#N canvas 0 62 1920 986 M2_fx1 1;
 #X obj 133 671 inlet~;
 #X obj 133 1221 outlet~;
 #X obj 233 1221 outlet~;
