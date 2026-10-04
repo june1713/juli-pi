@@ -3,6 +3,7 @@
 # Kill any stale instances before launching
 pkill -f "wearpi-osc-lists" 2>/dev/null
 pkill -f "ssd1306_sliders_3.py" 2>/dev/null
+pkill -f "ssd1306_osc_to_oled.py" 2>/dev/null
 pkill -f puredata 2>/dev/null
 sleep 1
 

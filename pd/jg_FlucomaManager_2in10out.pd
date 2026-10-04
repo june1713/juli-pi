@@ -286,7 +286,7 @@
 #X obj -992 1038 r slider8_\$1;
 #X obj -966 1068 r slider9_\$1;
 #X obj -941 1098 r slider10_\$1;
-#X obj 130 -51 jg_presets_10;
+#X obj 130 -51 jg_presets_10_new \$1;
 #X obj -1169 465 fluid.mlpregressor mlp_\$1 -hiddenlayers 5 -activation 1 -outputactivation 1 -batchsize 1 -maxiter 10000 -learnrate 0.1 -validation 0, f 42;
 #X listbox 375 -51 10 0 0 0 - - - 16;
 #X obj 375 -78 symbol \$1;

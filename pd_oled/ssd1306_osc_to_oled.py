@@ -31,6 +31,8 @@ from pythonosc.osc_server import OSCUDPServer
 # --------------------------------------------------
 
 slider_values = [0.0] * 8
+volume_value = 1.0
+blinking0_enabled = False
 blinking1_enabled = False
 blinking2_enabled = False
 blinking3_enabled = False
@@ -50,6 +52,24 @@ def slider_handler(address, value):
     new_value = max(0.0, min(1.0, float(value)))
     if slider_values[slider_index] != new_value:
         slider_values[slider_index] = new_value
+        display_dirty.set()
+
+
+def volume_handler(address, value):
+    global volume_value
+    new_value = max(0.0, min(1.0, float(value)))
+    if volume_value != new_value:
+        volume_value = new_value
+        display_dirty.set()
+
+
+def blink0_handler(address, value):
+    global blinking0_enabled, volume_visible
+    new_value = bool(float(value))
+    if blinking0_enabled != new_value:
+        blinking0_enabled = new_value
+        if not blinking0_enabled:
+            volume_visible = True
         display_dirty.set()
 
 
@@ -113,8 +133,10 @@ def text3_handler(address, value):
 
 dispatcher = dispatcher.Dispatcher()
 
+dispatcher.map("/slider0", volume_handler)
 for slider_number in range(1, 9):
     dispatcher.map(f"/slider{slider_number}", slider_handler)
+dispatcher.map("/blink0", blink0_handler)
 dispatcher.map("/blink1", blink1_handler)
 dispatcher.map("/blink2", blink2_handler)
 dispatcher.map("/blink3", blink3_handler)
@@ -160,6 +182,7 @@ font = ImageFont.load_default()
 text1_visible = True
 text2_visible = True
 text3_visible = True
+volume_visible = True
 last_blink = time.monotonic()
 blink_interval = 0.15
 frame_interval = 1 / 20
@@ -177,9 +200,11 @@ while True:
     # This waits briefly for an OSC message so the blink timer can run.
     server.handle_request()
 
-    if blinking1_enabled or blinking2_enabled or blinking3_enabled:
+    if blinking1_enabled or blinking2_enabled or blinking3_enabled or blinking0_enabled:
         now = time.monotonic()
         if now - last_blink >= blink_interval:
+            if blinking0_enabled:
+                volume_visible = not volume_visible
             if blinking1_enabled:
                 text1_visible = not text1_visible
             if blinking2_enabled:
@@ -206,8 +231,8 @@ while True:
     # DRAW SENSOR INDICATORS
     # --------------------------------------------------
 
-    bar_width = 28
-    column_width = width // 4
+    bar_width = 22
+    column_width = 29
     for index, value in enumerate(slider_values):
         row = index // 4
         column = index % 4
@@ -216,6 +241,11 @@ while True:
             x = column * column_width + 2
             y = 3 + row * 6
             draw.line((x, y, x + bar_length - 1, y), fill=255)
+
+    if volume_visible:
+        volume_bottom = 20
+        volume_top = volume_bottom - int(volume_value * 18)
+        draw.rectangle((118, volume_top, 125, volume_bottom), outline=255, fill=0)
 
     # --------------------------------------------------
     # DRAW TEXT
